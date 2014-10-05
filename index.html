@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>Leedit!</title>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://startbootstrap.com/templates/clean-blog/css/clean-blog.min.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+
+  <script src="app.js"></script>
+
+
+
+  <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+</head>
+
+
+<body ng-app="mashup" ng-controller="MainCtrl">
+
+  <div class="jumbotron black">
+    <div ng-repeat="api in apis | orderBy:'-upvotes'">
+
+      <div class='row'>
+        <div class="col-md-3 col-md-offset-1">
+          <h3>{{api.title}}  </h3>
+        </div>
+        <div class="col-md-4">
+        <h4> and </h4>
+        </div>
+        <div class="col-md-3 ">
+          <h3>{{api.title}} </h3>
+        </div>
+      </div>
+
+    </div>
+    <div class = 'row'>
+      <div class="col-md-6 col-md-offset-3">
+       <ui-view></ui-view>
+     </div>
+   </div>
+
+   <button type="submit" class="btn btn-primary center" ng-click="incrementUpvotes">Shit is cray</button>
+
+   <h2> heatmap </h2>
+   <br>
+   <div ng-repeat="api in apis | orderBy:'-upvotes'">
+
+    <div class='row'>
+      <div class="col-md-2 col-md-offset-4">
+        <h4>{{api.title}}<h4>
+      </div>
+       <div class="col-md-2">
+        <h4>{{api.upvotes}}<h4>
+      </div>
+
+  </div>
+</div>
+
+</body>
+
+</html>
