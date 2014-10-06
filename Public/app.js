@@ -1,3 +1,9 @@
+//Helper function
+Array.prototype.randomElement = function () {
+    return this[Math.floor(Math.random() * this.length)]
+}
+
+
 angular.module('mashup', ['ui.router'])
 
 // Service for mashups
@@ -36,15 +42,26 @@ angular.module('mashup', ['ui.router'])
           {title: 'post 3', upvotes: 15},
           {title: 'post 4', upvotes: 9},
           {title: 'post 5', upvotes: 4}*/
-        ]
+        ],
+        currentSong: [] ,
+        embed: []
 
       };
      o.getList = function () {
          return $http.get('/api/songs').success(function(data){
              angular.copy(data, o.songs);
          });
-
      };
+     o.getSong = function () {
+         return o.songs.randomElement();
+     };
+    
+    
+    o.getEmbed = function (url) {
+        return $http.get('http://soundcloud.com/oembed?format=json&url=' + url).success(function(data){
+            angular.copy(data, o.embed);
+        }) 
+    }
   return o;
 }])
 
@@ -55,6 +72,7 @@ angular.module('mashup', ['ui.router'])
 	function($scope,$http,mashups,songs){
         mashups.getList();
         songs.getList();
+        $scope.songs = songs.songs;
         $scope.mashups = mashups.mashups;
         
 		$scope.test = 'Hello world!';
