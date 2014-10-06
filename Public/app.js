@@ -59,7 +59,7 @@ angular.module('mashup', ['ui.router'])
     
     
     o.getEmbed = function (url) {
-        return $http.get('http://soundcloud.com/oembed?format=json&url=' + o.getSong.url).success(function(data){
+        return $http.get('http://soundcloud.com/oembed?format=json&url=' + o.getSong.href).success(function(data){
             console.log(data);
             angular.copy(data, o.embed);
         }) 
@@ -71,7 +71,7 @@ angular.module('mashup', ['ui.router'])
 // Controller that handles actions
 .controller('MainCtrl', [
 	'$scope', '$http','mashups','songs',
-	function($scope,$http,mashups,songs){
+	function($scope,$http,mashups,songs,embed,curretnSong){
         mashups.getList();
         songs.getList();
         songs.getSong();
@@ -79,8 +79,9 @@ angular.module('mashup', ['ui.router'])
         songs.getEmbed();
         $scope.songs = songs.songs;
         $scope.mashups = mashups.mashups;
-        
+        $scope.embed = songs.embed;
 		$scope.test = 'Hello world!';
+        $scope.currentSong = songs.currentSong;
  
 		$scope.addPost = function(){
 			if($scope.title == '') { return; }
