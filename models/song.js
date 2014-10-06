@@ -8,8 +8,6 @@ var SongSchema   = new Schema({
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     updated :{ type: Date, default: Date.now },
     
-
-
 });
 SongSchema.methods.upvote = function(cb) {
   this.upvotes += 1;
