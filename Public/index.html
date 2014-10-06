@@ -37,6 +37,19 @@
 
    <h2> Picks of the Day </h2>
    <br>
+      
+      <div ng-repeat="song in songs">
+
+    <div class='row'>
+      <div class="col-md-2 col-md-offset-4">
+        <h4>{{song.song.href}}<h4>
+      </div>
+       <div class="col-md-2">
+        <h4>{{song.song.text}}<h4>
+      </div>
+
+  </div>
+            </div>
    <div ng-repeat="mashup in mashups | orderBy:'-upvotes'">
 
     <div class='row'>

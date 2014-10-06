@@ -120,8 +120,8 @@ router.route('/songs')
 	.get(function(req,res) {
         request("https://www.kimonolabs.com/api/eewateh0?apikey=deEjldQkPV5fRpfyTC3L9xQpPe2VeBeS", 
         function(err, response, body) {
-          console.log(body);
-            res.json(body);
+           console.log(JSON.parse(body).results.collection1);
+            res.json(JSON.parse(body).results.collection1);
         });
 	})
 router.route('/embedSong/')

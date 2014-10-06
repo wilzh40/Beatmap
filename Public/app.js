@@ -50,6 +50,7 @@ angular.module('mashup', ['ui.router'])
      o.getList = function () {
          return $http.get('/api/songs').success(function(data){
              angular.copy(data, o.songs);
+             console.log("copied songs");
          });
      };
      o.getSong = function () {
@@ -58,7 +59,8 @@ angular.module('mashup', ['ui.router'])
     
     
     o.getEmbed = function (url) {
-        return $http.get('http://soundcloud.com/oembed?format=json&url=' + url).success(function(data){
+        return $http.get('http://soundcloud.com/oembed?format=json&url=' + o.getSong.url).success(function(data){
+            console.log(data);
             angular.copy(data, o.embed);
         }) 
     }
@@ -72,6 +74,9 @@ angular.module('mashup', ['ui.router'])
 	function($scope,$http,mashups,songs){
         mashups.getList();
         songs.getList();
+        songs.getSong();
+        console.log(songs.currentSong);
+        songs.getEmbed();
         $scope.songs = songs.songs;
         $scope.mashups = mashups.mashups;
         
