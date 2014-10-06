@@ -76,6 +76,7 @@ router.route('/mashups')
 	.post(function(req,res) {
 		var mashup = new Mashup();
 		mashup.name = req.body.name;
+        mashup.upvotes = req.body.upvotes;
 		mashup.save(function(err) {
 			if (err) {
 				res.send(err);
@@ -93,10 +94,24 @@ router.route('/mashups')
 
 router.route('/mashups/:mashup_id')
 	.get(function(req,res) {
-		Bear.findById(req.params.bear_id, function(err,bear) {
+		Mashup.findById(req.params.mashup_id, function(err,mashup) {
 			if (err)
 				res.send(err);
-			res.json(bear);
+			res.json(mashup);
+		})
+	})
+router.route('/mashups/upvote/:mashup_id')
+	.get(function(req,res) {
+		Mashup.findById(req.params.mashup_id, function(err,mashup) {
+			if (err)
+				res.send(err);
+			mashup.upvotes += 1;
+            mashup.save(function(err) {
+                if (err) {
+                    res.send(err);
+                };
+                res.json(mashup);
+	       	})
 		})
 	})
 
