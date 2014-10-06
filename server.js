@@ -118,11 +118,10 @@ router.route('/mashups/upvote/:mashup_id')
 	})
 router.route('/songs')
 	.get(function(req,res) {
-		Mashup.findById(req.params.mashup_id, function(err,mashup) {
-			if (err)
-				res.send(err);
-			res.json(songs);
-		})
+        request("https://www.kimonolabs.com/api/eewateh0?apikey=deEjldQkPV5fRpfyTC3L9xQpPe2VeBeS", 
+        function(err, response, body) {
+          console.log(body);
+        });
 	})
 
 // Default
