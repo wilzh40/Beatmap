@@ -1,8 +1,13 @@
 //Helper function
-Array.prototype.randomElement = function () {
-    return this[Math.floor(Math.random() * this.length)]
-}
 
+function pickRand(obj) {
+    var result;
+    var count = 0;
+    for (var prop in obj)
+        if (Math.random() < 1/++count)
+           result = prop;
+    return result;
+}
 
 angular.module('mashup', ['ui.router'])
 
@@ -50,39 +55,49 @@ angular.module('mashup', ['ui.router'])
      o.getList = function () {
          return $http.get('/api/songs').success(function(data){
              angular.copy(data, o.songs);
+             //angular.copy(o.songs.randomElement().song.href, o.currentSong);
              console.log("copied songs");
+             o.getSong();
          });
      };
      o.getSong = function () {
-         return o.songs.randomElement();
+         for (var x in o.songs)
+             o.currentSong.append(x);
+            
      };
     
     
-    o.getEmbed = function (url) {
-        return $http.get('http://soundcloud.com/oembed?format=json&url=' + o.getSong.href).success(function(data){
-            console.log(data);
-            angular.copy(data, o.embed);
-        }) 
+    o.getEmbed = function () {
+       return $http.get('/api/embedSong').success(function(data){
+               angular.copy(JSON.parse(data), o.embed);
+            }); 
     }
   return o;
 }])
 
 
+ 
 // Controller that handles actions
 .controller('MainCtrl', [
 	'$scope', '$http','mashups','songs',
-	function($scope,$http,mashups,songs,embed,curretnSong){
+	function($scope,$http,mashups,songs,embed,currentSong){
         mashups.getList();
         songs.getList();
-        songs.getSong();
-        console.log(songs.currentSong);
         songs.getEmbed();
-        $scope.songs = songs.songs;
+        
+            $scope.songs = songs.songs;
         $scope.mashups = mashups.mashups;
         $scope.embed = songs.embed;
 		$scope.test = 'Hello world!';
         $scope.currentSong = songs.currentSong;
- 
+       // $scope.currentSong = pickRand(songs.songs);
+        
+
+        $scope.getEmbed = function(href){
+            $http.get('http://soundcloud.com/oembed?format=json&url=' + href).success(function(data){
+               return data;
+            }); 
+        };
 		$scope.addPost = function(){
 			if($scope.title == '') { return; }
 			$scope.posts.push({

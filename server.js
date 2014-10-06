@@ -126,10 +126,13 @@ router.route('/songs')
 	})
 router.route('/embedSong/')
 	.get(function(req,res) {
-        request("https://www.kimonolabs.com/api/eewateh0?apikey=deEjldQkPV5fRpfyTC3L9xQpPe2VeBeS", 
+        request('http://soundcloud.com/oembed?format=json&url=' + "http://soundcloud.com/forss/flickermood", 
         function(err, response, body) {
           console.log(body);
+      //  req.json(body)   
+            res.json(body);
         });
+
 	})
 
 
