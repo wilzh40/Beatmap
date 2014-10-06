@@ -35,6 +35,13 @@ angular.module('mashup', ['ui.router'])
         o.posts.push(data);
       });
     };
+    o.upvote = function(mashup) {
+      return $http.put('/mashups/' + mashup._id + '/upvote')
+        .success(function(data){
+          mashup.upvotes += 1;
+    });
+};
+ 
 
   return o;
 }])
@@ -63,7 +70,6 @@ angular.module('mashup', ['ui.router'])
      o.getSong = function () {
          for (var x in o.songs)
              o.currentSong.append(x);
-            
      };
     
     
@@ -72,6 +78,11 @@ angular.module('mashup', ['ui.router'])
                angular.copy(JSON.parse(data), o.embed);
             }); 
     }
+    o.upvote = function(song) {
+      return $http.put('/songs/' + song._id + '/upvote')
+        .success(function(data){
+            song.upvotes += 1;
+    })};
   return o;
 }])
 
@@ -116,11 +127,8 @@ angular.module('mashup', ['ui.router'])
 				{author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
 				]
 			});
-
-
-
 		};
-		$scope.incrementUpvotes = function(post){
-			post.upvotes +=1;
+		$scope.incrementUpvotes = function(song){
+			song.upvotes += 1;
 		}
 	}]);

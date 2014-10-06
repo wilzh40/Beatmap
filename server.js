@@ -2,7 +2,7 @@ var express  = require('express');
 var app      = express(); 								// create our app w/ express
 var mongoose = require('mongoose'); 					// mongoose for mongodb
 var morgan = require('morgan'); 			// log requests to the console (express4)
-var bodyParser = require('body-parser'); 	// pull information from HTML POST (express4)
+var bodyParser = require('body-parser'); 	// pull information from HTML mashup (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 var request = require("request");
 
@@ -35,7 +35,8 @@ var Api = mongoose.model('Api', {
 		imageURL : String
 	});
 var Mashup = require('./models/mashup');
-var Song = require('./models/song')
+var Song = require('./models/song');
+var Comment = require('./models/Comment');
 
 
 // Routing
@@ -102,20 +103,19 @@ router.route('/mashups/:mashup_id')
 			res.json(mashup);
 		})
 	})
-router.route('/mashups/upvote/:mashup_id')
-	.get(function(req,res) {
-		Mashup.findById(req.params.mashup_id, function(err,mashup) {
-			if (err)
-				res.send(err);
-			mashup.upvotes += 1;
-            mashup.save(function(err) {
-                if (err) {
-                    res.send(err);
-                };
-                res.json(mashup);
-	       	})
-		})
-	})
+router.put('/mashups/:mashup/upvote', function(req, res, next) {
+  req.mashup.upvote(function(err, mashup){
+    if (err) { return next(err); }
+    res.json(mashup);
+  });
+});
+router.put('/songs/:song/upvote', function(req, res, next) {
+  req.song.upvote(function(err, song){
+    if (err) { return next(err); }
+    res.json(song);
+  });
+});
+// EXTERNAL REQUESTS OVER HERE
 router.route('/songs')
 	.get(function(req,res) {
         request("https://www.kimonolabs.com/api/eewateh0?apikey=deEjldQkPV5fRpfyTC3L9xQpPe2VeBeS", 

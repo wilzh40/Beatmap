@@ -18,3 +18,19 @@ h6 {
 * {
   box-sizing: border-box;
 }
+
+
+
+span {
+   
+    
+   transition: all .25s ease-in-out;
+   -moz-transition: all .25s ease-in-out;
+   -webkit-transition: all .25s ease-in-out;
+
+}
+span:hover {
+     color: #BC2328;
+    opacity: 0.75;
+    
+}
