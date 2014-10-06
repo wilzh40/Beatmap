@@ -4,6 +4,7 @@ var mongoose = require('mongoose'); 					// mongoose for mongodb
 var morgan = require('morgan'); 			// log requests to the console (express4)
 var bodyParser = require('body-parser'); 	// pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+var request = require("request");
 
 // configuration =================
 
@@ -34,6 +35,7 @@ var Api = mongoose.model('Api', {
 		imageURL : String
 	});
 var Mashup = require('./models/mashup');
+var Song = require('./models/song')
 
 
 // Routing
@@ -114,7 +116,14 @@ router.route('/mashups/upvote/:mashup_id')
 	       	})
 		})
 	})
-
+router.route('/songs')
+	.get(function(req,res) {
+		Mashup.findById(req.params.mashup_id, function(err,mashup) {
+			if (err)
+				res.send(err);
+			res.json(songs);
+		})
+	})
 
 // Default
 app.get('/', function(req, res) {
