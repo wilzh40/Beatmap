@@ -1,71 +1,74 @@
 <html>
-<head>
-	<title>Beatmap</title>
-	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="http://startbootstrap.com/templates/clean-blog/css/clean-blog.min.css" rel="stylesheet">
-  <link href="index.css" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Nixie+One|Poiret+One' rel='stylesheet' type='text/css'>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+    <head>
+        <title>Beatmap</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://startbootstrap.com/templates/clean-blog/css/clean-blog.min.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Nixie+One|Poiret+One' rel='stylesheet' type='text/css'>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
 
 
-  <script src="app.js"></script>
+        <script src="app.js"></script>
 
 
 
-  <style> .glyphicon-thumbs-up { cursor:pointer } </style>
-</head>
+        <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+    </head>
 
 
-<body ng-app="mashup" ng-controller="MainCtrl">
+    <body ng-app="mashup" ng-controller="MainCtrl">
 
-  <div class="jumbotron black">
-    <h1>[Beatmap]</h1>
-      
-      <!iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/34019569&color=0066cc"><!/iframe>
-      
-      {{embed.join("")}}
- {{currentSong}}
-  
-      <div ng-bind-html-unsafe="embed.join()"></div>
-      
-    <div class = 'row'>
-      <div class="col-md-6 col-md-offset-3">
-       <ui-view></ui-view>
-     </div>
-   </div>
+        <div class="jumbotron black">
+            <h1>[Beatmap]</h1>
+            
+            <!iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/34019569&color=0066cc"><!/iframe>
+            <p ng-bind-html-unsafe="embed"></p>
+            {{embed.join("")}}
+            {{currentSong}}
 
-   <button type="submit" class="btn btn-primary center" ng-click="incrementUpvotes">Shit is cray</button>
+            <div ng-bind-html-unsafe="embed.join()"></div>
 
-   <h2> Picks of the Day </h2>
-   <br>
-      
-      <div ng-repeat="song in songs">
-     
-    <div class='row'>
-      <div class="col-md-4 col-md-offset-4">
-        <h4>{{song.song.text}}<h4>  <span ng-click="incrementUpvotes(song)">^</span>
-      </div>
-     
-  </div>
+            <div class = 'row'>
+                <div class="col-md-6 col-md-offset-3">
+                    <ui-view></ui-view>
+                </div>
             </div>
-   <div ng-repeat="mashup in mashups | orderBy:'-upvotes'">
 
-    <div class='row'>
-      <div class="col-md-2 col-md-offset-4">
-        <h4>{{mashup.name}}<h4>
-      </div>
-       <div class="col-md-2">
-        <h4>{{mashup.upvotes}}<h4>
-      </div>
-      <div class="col-xs-1">
-                  <span class="glyphicon glyphicon-chevron-up" ng-click="incrementUpvotes(mashup)"></span>
-          </div>
+            <button type="submit" class="btn btn-primary center" ng-click="incrementUpvotes">Shit is cray</button>
+
+            <h2> Picks of the Day </h2>
+            <br>
+
+            <div ng-repeat="song in songs">
+
+                <div class='row'>
+                    <div class="col-md-4 col-md-offset-4">
+                        <h4>{{song.title.text}} - {{song.date}} <h4> 
+                    </div>
+                            <div class="row-md-1">
+                                <span class="glyphicon glyphicon-chevron-up" ng-click="incrementUpvotes(song)"></span>
+                            </div>
+
+                    </div>
+                    </div>
+                    <div ng-repeat="mashup in mashups | orderBy:'-upvotes'">
+
+                        <div class='row'>
+                            <div class="col-md-2 col-md-offset-4">
+                                <h4>{{mashup.name}}<h4>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h4>{{mashup.upvotes}}<h4>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <span class="glyphicon glyphicon-chevron-up" ng-click="incrementUpvotes(mashup)"></span>
+                                            </div>
 
 
-  </div>
-</div>
+                                            </div>
+                                    </div>
 
-</body>
+                                    </body>
 
-</html>
+                                </html>

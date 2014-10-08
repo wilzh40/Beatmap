@@ -1,9 +1,9 @@
 body {
-  background-color: #494949;
-  padding-top: 75px;
+    background-color: #494949;
+    padding-top: 75px;
     padding-bottom: 75px;
-  text-align: center;
-    
+    text-align: center;
+
 }
 h1,
 h2,
@@ -16,21 +16,21 @@ h6 {
     font-family: 'Nixie One', cursive;
 }
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 
 
 span {
-   
-    
-   transition: all .25s ease-in-out;
-   -moz-transition: all .25s ease-in-out;
-   -webkit-transition: all .25s ease-in-out;
+
+
+    transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
 
 }
 span:hover {
-     color: #BC2328;
+    color: #BC2328;
     opacity: 0.75;
-    
+
 }

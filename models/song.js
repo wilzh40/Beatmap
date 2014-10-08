@@ -18,7 +18,7 @@ var SongSchema   = new Schema({
     trash: {type: Boolean, default: false},
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     updated: {type: Date, default:Date.now },
-    
+
 });
 SongSchema.methods.upvote = function(cb) {
     this.upvotes += 1;
@@ -35,11 +35,11 @@ SongSchema.methods.yay = function(cb) {
 };
 SongSchema.methods.nay = function(cb) {
     this.threshold -= 1;
-     if (this.threshold <= tThres) {
+    if (this.threshold <= tThres) {
         this.trash = true;
     }
     this.save(cb);
-   
+
 };
 
 module.exports = mongoose.model('Song', SongSchema);
